@@ -1,0 +1,61 @@
+<form action="<%= users_path %>" method="post" accept-charset="utf-8">
+  <% if @user.errors.any? %>
+    <h4>There we errors while saving the user.</h4>
+
+    <ul>
+      <% @user.errors.full_messages.each do |err_msg| %>
+        <li><%= err_msg %></li>
+      <% end %>
+    </ul>
+  <% end %>
+  <input
+    type="hidden"
+    name="authenticity_token"
+    value="3dfcea3f-feb5-4c60-a27a-2c61ad6e859a"
+  >
+
+  <div>
+    <label for="username">Username:</label>
+    <input
+      type="text"
+      name="user[username]"
+      id="username"
+      placeholder="Enter your preferred username"
+    >
+  </div>
+
+  <div>
+    <label for="email">Email:</label>
+    <input
+      type="email"
+      name="user[email]"
+      id="email"
+      id="email"
+      placeholder="Enter your email address"
+    >
+  </div>
+
+  <div>
+    <label for="password">Password:</label>
+    <input
+      type="password"
+      name="user[password]"
+      id="password"
+      placeholder="Password"
+    >
+  </div>
+
+  <div>
+    <label for="password_confirmation">Password:</label>
+    <input
+      type="password"
+      name="user[password_confirmation]"
+      id="password_confirmation"
+      placeholder="Password confirmation"
+    >
+  </div>
+
+  <div>
+    <button type="submit">Submit</button>
+  </div>
+</form>
