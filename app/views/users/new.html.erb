@@ -1,35 +1,32 @@
-<%= form_tag "/users", method: :post do %>
+<h1>Welcome, Create an Account to Continue</h1>
+
+<%= form_with model: @user do |form| %>
   <% if @user.errors.any? %>
-    <h4>There we errors while saving the user.</h4>
     <ul>
-      <% @user.errors.full_messages.each do |err_msg| %>
-        <li><%= err_msg %></li>
+      <% @user.errors.each do |error| %>
+        <li><%= error.full_message %></li>
       <% end %>
     </ul>
   <% end %>
   <div>
-    <%= label_tag "usename" %>
-    <%= text_field_tag "user[username]", nil, placeholder: "Enter your username" %>
+    <%= form.label :username %>:
+    <%= form.text_field :username, placeholder: Faker::Internet.user_name %>
   </div>
 
   <div>
-    <%= label_tag "email" %>
-    <%= email_field_tag "user[email]", nil, placeholder: "Enter your email address" %>
+    <%= form.label :email %>:
+    <%= form.email_field :email, placeholder: Faker::Internet.email %>
   </div>
 
   <div>
-    <%= label_tag "password" %>
-    <%= password_field_tag "user[password]", nil, placeholder: "Password" %>
+    <%= form.label :password %>:
+    <%= form.password_field :password, placeholder: "Password" %>
   </div>
 
   <div>
-    <%= label_tag "password_confirmation" %>
-    <%= password_field_tag "user[password_confirmation]",
-    nil,
-    placeholder: "Password confirmation" %>
+    <%= form.label :password_confirmation %>:
+    <%= form.password_field :password_confirmation, placeholder: "Password Confirmation" %>
   </div>
 
-  <div>
-    <%= submit_tag "Create User" %>
-  </div>
+  <%= form.submit %>
 <% end %>
