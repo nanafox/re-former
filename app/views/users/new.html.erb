@@ -1,32 +1,57 @@
-<h1>Welcome, Create an Account to Continue</h1>
+<%= form_with model: @user, class: "card flex flex-col gap" do |form| %>
+  <div class="flex flex-col gap-half">
+    <h1 class="text-2xl font-semibold leading-none">Stock Exchange Market</h1>
+    <p class="text-sm text-subtle">Register now to access amazing stock offers.</p>
+  </div>
 
-<%= form_with model: @user do |form| %>
   <% if @user.errors.any? %>
-    <ul>
-      <% @user.errors.each do |error| %>
-        <li><%= error.full_message %></li>
-      <% end %>
-    </ul>
+    <div
+      class="alert alert--negative flex items-start gap"
+      style="--column-gap: 0.75rem;"
+      role="alert"
+    >
+      <%= image_tag "alert-circle-outline.svg", size: 32, aria: { hidden: true } %>
+      <div class="flex flex-col">
+        <h1><%= pluralize(@user.errors.count, "Error") %></h1>
+        <% @user.errors.each do |error| %>
+          <p><%= error.full_message %></p>
+        <% end %>
+      </div>
+    </div>
   <% end %>
-  <div>
-    <%= form.label :username %>:
-    <%= form.text_field :username, placeholder: Faker::Internet.user_name %>
-  </div>
 
-  <div>
-    <%= form.label :email %>:
-    <%= form.email_field :email, placeholder: Faker::Internet.email %>
-  </div>
+  <div class="flex flex-col gap mb-2">
+    <div class="flex flex-col gap-half">
+      <%= form.label :username %>
+      <%= form.text_field :username,
+                      placeholder: Faker::Internet.user_name,
+                      class: "input",
+                      required: true %>
+    </div>
 
-  <div>
-    <%= form.label :password %>:
-    <%= form.password_field :password, placeholder: "Password" %>
-  </div>
+    <div class="flex flex-col gap-half">
+      <%= form.label :email %>
+      <%= form.email_field :email,
+                       placeholder: Faker::Internet.email,
+                       class: "input",
+                       required: true %>
+    </div>
 
-  <div>
-    <%= form.label :password_confirmation %>:
-    <%= form.password_field :password_confirmation, placeholder: "Password Confirmation" %>
-  </div>
+    <div class="flex flex-col gap-half">
+      <%= form.label :password %>
+      <%= form.password_field :password,
+                          placeholder: "Password",
+                          class: "input",
+                          required: true %>
+    </div>
 
-  <%= form.submit %>
+    <div class="flex flex-col gap-half">
+      <%= form.label :password_confirmation %>
+      <%= form.password_field :password_confirmation,
+                          placeholder: "Password Confirmation",
+                          class: "input",
+                          required: true %>
+    </div>
+  </div>
+  <%= form.submit class: "btn btn--primary" %>
 <% end %>
