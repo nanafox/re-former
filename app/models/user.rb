@@ -8,14 +8,4 @@ class User < ApplicationRecord
                     }
   validates :password, confirmation: true, unless: -> { password.blank? }
   validates :password, length: { minimum: 10 }
-
-  validate :passwords_must_match
-
-  private
-
-  def passwords_must_match
-    if password != password_confirmation
-      errors.add(:password_confirmation, "must match the password")
-    end
-  end
 end
