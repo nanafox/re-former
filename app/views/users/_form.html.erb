@@ -1,0 +1,62 @@
+<%= form_with model: user, class: "card flex flex-col gap" do |form| %>
+  <div class="flex flex-col gap-half">
+    <% if user.new_record? %>
+      <h1 class="text-2xl font-semibold leading-none">User Registration</h1>
+      <p class="text-sm text-subtle">Register a new user.</p>
+    <% else %>
+      <h1 class="text-2xl font-semibold leading-none">User Details Update</h1>
+      <p>Update your user details</p>
+    <% end %>
+  </div>
+
+  <% if @user.errors.any? %>
+    <div
+      class="alert alert--negative flex items-start gap"
+      style="--column-gap: 0.75rem;"
+      role="alert"
+    >
+      <%= image_tag "alert-circle-outline.svg", size: 32, aria: { hidden: true } %>
+      <div class="flex flex-col">
+        <h1><%= pluralize(@user.errors.count, "Error") %></h1>
+        <% @user.errors.each do |error| %>
+          <p><%= error.full_message %></p>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="flex flex-col gap mb-2">
+    <div class="flex flex-col gap-half">
+      <%= form.label :username %>
+      <%= form.text_field :username,
+                      placeholder: Faker::Internet.user_name,
+                      class: "input",
+                      required: true %>
+    </div>
+
+    <div class="flex flex-col gap-half">
+      <%= form.label :email %>
+      <%= form.email_field :email,
+                       placeholder: Faker::Internet.email,
+                       class: "input",
+                       required: true %>
+    </div>
+
+    <div class="flex flex-col gap-half">
+      <%= form.label :password %>
+      <%= form.password_field :password,
+                          placeholder: "Password",
+                          class: "input",
+                          required: true %>
+    </div>
+
+    <div class="flex flex-col gap-half">
+      <%= form.label :password_confirmation %>
+      <%= form.password_field :password_confirmation,
+                          placeholder: "Password Confirmation",
+                          class: "input",
+                          required: true %>
+    </div>
+  </div>
+  <%= form.submit class: "btn btn--primary" %>
+<% end %>
