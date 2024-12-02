@@ -13,6 +13,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
+      flash[:success] = "User created successfully"
       redirect_to @user
     else
       render :new, status: :unprocessable_content
@@ -30,6 +31,7 @@ class UsersController < ApplicationController
       redirect_to root_path
     else
       if @user.update(user_params)
+        flash[:success] = "User updated successfully"
         redirect_to @user
       else
         render :edit, status: :unprocessable_content
