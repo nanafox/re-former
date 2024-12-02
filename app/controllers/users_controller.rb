@@ -29,6 +29,7 @@ class UsersController < ApplicationController
     if @user.nil?
       redirect_to root_path
     else
+      @user.update(user_params)
       redirect_to @user
     end
   end
