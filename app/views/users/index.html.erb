@@ -1,0 +1,12 @@
+<div class="grid gtc-autofit gap" id="users_data">
+  <% if @users.count.zero? %>
+    <h2 class="m-auto">No users found.
+      <%= link_to "Create One", new_user_path, class: "btn btn--secondary" %></h2>
+  <% else %>
+    <% @users.each do |user| %>
+      <div class="card">
+        <%= render "user_data", user: user %>
+      </div>
+    <% end %>
+  <% end %>
+</div>
