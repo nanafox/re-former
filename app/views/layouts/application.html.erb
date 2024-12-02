@@ -24,8 +24,18 @@
 
   <body class="header-layout">
     <header id="header">
-      <div class="container">
-        <%= link_to "Simple Stock Exchange", root_path, class: "font-bold text-2xl" %>
+      <div class="container flex">
+        <div>
+          <%= link_to "Simple User Registration", root_path, class: "font-bold text-2xl" %>
+        </div>
+        <nav class="group m-auto" role="group">
+          <%= link_to "New user", new_user_path, class: "btn" %>
+          <%= link_to "All Users", users_path, class: "btn" %>
+          <%= link_to "Source Code",
+          "https://github.com/nanafox/re-former",
+          class: "btn",
+          target: "_blank" %>
+        </nav>
       </div>
     </header>
 
