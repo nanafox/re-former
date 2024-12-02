@@ -1,12 +1,12 @@
 <div class="user-data flex gap">
   <div class="avatar"><%= tag.span user.username.first.upcase, role: "img" %></div>
-  <div class="user_details">
+  <div class="user_details text-sm">
     <p>Username:
       <%= user.username %></p>
     <p>Email:
       <%= user.email %></p>
     <p class="badge">User</p>
-    <div class="flex items-center justify-between text-sm gap mt-2">
+    <div class="flex items-center gap mt-2">
       <%= link_to "Delete",
       user_path(user),
       data: {
