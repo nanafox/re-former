@@ -1,0 +1,25 @@
+<%= form_with url: auth_login_path, method: :post, class: "card flex flex-col gap" do |form| %>
+  <div class="flex flex-col gap-half">
+    <h1 class="text-2xl font-semibold leading-none">Sign In</h1>
+    <p class="text-sm text-subtle">Log in to manage your users.</p>
+  </div>
+  <div class="flex flex-col gap mb-2">
+    <div class="flex flex-col gap-half">
+      <%= form.label "username" %>
+      <%= form.text_field "user[username]",
+                      placeholder: "Enter your username here...",
+                      required: true,
+                      class: "input" %>
+    </div>
+
+    <div class="flex flex-col gap-half">
+      <%= form.label "password" %>
+      <%= form.password_field "user[password]",
+                          placeholder: "Enter your password...",
+                          required: true,
+                          class: "input" %>
+    </div>
+  </div>
+
+  <%= form.submit "Sign in", class: "btn btn--primary" %>
+<% end %>

@@ -1,5 +1,7 @@
 # user model for the form
 class User < ApplicationRecord
+  include BCrypt
+
   has_secure_password
 
   validates :username, :password, :email, presence: true
@@ -10,4 +12,8 @@ class User < ApplicationRecord
                     }
   validates :password, confirmation: true, unless: -> { password.blank? }
   validates :password, length: { minimum: 10 }
+
+  def authenticate(password)
+    Password.new(password_digest) == password
+  end
 end

@@ -26,11 +26,26 @@
     <header id="header">
       <div class="container flex">
         <div>
-          <%= link_to "Simple User Registration", root_path, class: "font-bold text-2xl" %>
+          <% if authenticated? %>
+            <%= link_to "Simple User Registration", users_path, class: "font-bold text-2xl" %>
+          <% else %>
+            <%= link_to "Simple User Registration", root_path, class: "font-bold text-2xl" %>
+          <% end %>
         </div>
         <nav class="group m-auto" role="group">
-          <%= link_to "New user", new_user_path, class: "btn" %>
-          <%= link_to "All Users", users_path, class: "btn" %>
+          <% if authenticated? %>
+            <%= link_to "All Users", users_path, class: "btn" %>
+            <%= link_to "Sign out",
+            auth_logout_path,
+            class: "btn",
+            data: {
+              turbo_method: :delete,
+            } %>
+            <%= link_to "My Account", user_path(current_user), class: "btn" %>
+          <% else %>
+            <%= link_to "Sign in", auth_login_path, class: "btn" %>
+            <%= link_to "Sign up", new_user_path, class: "btn" %>
+          <% end %>
           <%= link_to "Source Code",
           "https://github.com/nanafox/re-former",
           class: "btn",
@@ -52,7 +67,14 @@
             role="alert"
           >
             <%= image_tag "check-circle-outline.svg",
-            class: "colorize-positive",
+            class:
+              (
+                if flash[:success]
+                  "colorize-positive"
+                else
+                  (flash[:error] ? "colorize-negative" : "")
+                end
+              ),
             size: 20,
             aria: {
               hidden: true,

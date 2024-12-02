@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[update show edit destroy]
+  before_action :authenticate!, only: %i[edit update destroy index show]
+  before_action :validate_user, only: %i[update destroy]
 
   def index
     @users = User.all
@@ -14,7 +16,7 @@ class UsersController < ApplicationController
 
     if @user.save
       flash[:success] = "User created successfully"
-      redirect_to @user
+      redirect_to auth_login_path
     else
       render :new, status: :unprocessable_content
     end
@@ -57,5 +59,12 @@ class UsersController < ApplicationController
 
   def set_user
     @user = User.find_by(id: params[:id])
+  end
+
+  def validate_user
+    if @user != current_user
+      flash[:error] = "You are not authorized to perform this action."
+      redirect_to users_path
+    end
   end
 end
