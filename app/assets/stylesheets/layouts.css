@@ -70,6 +70,19 @@
   padding: var(--size-4);
 
   @media (width >= 64rem) {
-    gap: var(--size-6); padding: var(--size-6);
+    gap: var(--size-6);
+    padding: var(--size-6);
   }
+}
+
+.grid {
+  display: grid;
+}
+
+.gtc-autofit {
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.mt-2 {
+  margin-top: var(--size-2);
 }
