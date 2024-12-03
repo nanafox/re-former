@@ -7,7 +7,6 @@ class SessionsController < ApplicationController
   def create
     if @user.authenticate(user_credentials[:password])
       session[:user_id] = @user.id
-      Rails.logger.debug "Sessions: #{session[:user_id]} created"
       flash[:success] = "User sign in successful"
       redirect_to user_path(@user)
     else
@@ -17,7 +16,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    session[:user_id] = nil
+    session.delete(:user_id)
     flash[:success] = "Logged out successfully."
     redirect_to auth_login_path
   end
