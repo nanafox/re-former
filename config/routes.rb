@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "/users/me", to: "users#me", as: :my_profile
   resources :users
   # resources :sessions, only: %i[new create destroy]
   get "/auth/login", to: "sessions#new"

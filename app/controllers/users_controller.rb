@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[update show edit destroy]
-  before_action :authenticate!, only: %i[edit update destroy index show]
+  before_action :set_user, only: %i[update show edit destroy me]
+  before_action :authenticate!, only: %i[edit update destroy index show me]
   before_action :validate_user, only: %i[update destroy]
 
   def index
@@ -15,7 +15,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      flash[:success] = "User created successfully"
+      flash[:success] = "User created successfully. Sign in to continue!"
       redirect_to auth_login_path
     else
       render :new, status: :unprocessable_content
@@ -23,6 +23,10 @@ class UsersController < ApplicationController
   end
 
   def show
+  end
+
+  def me
+    render "users/show"
   end
 
   def edit
@@ -43,11 +47,11 @@ class UsersController < ApplicationController
 
   def destroy
     if @user.nil?
-      redirect_to users_path
+      redirect_to root_path
     else
       @user.delete
 
-      redirect_to users_path, status: :see_other
+      redirect_to root_path, status: :see_other
     end
   end
 
@@ -58,13 +62,17 @@ class UsersController < ApplicationController
   end
 
   def set_user
-    @user = User.find_by(id: params[:id])
+    if params[:action] == "me"
+      @user = current_user
+    else
+      @user = User.find_by(id: params[:id])
+    end
   end
 
   def validate_user
     if @user != current_user
       flash[:error] = "You are not authorized to perform this action."
-      redirect_to users_path
+      redirect_to root_path
     end
   end
 end
