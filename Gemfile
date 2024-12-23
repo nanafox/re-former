@@ -3,7 +3,7 @@ source "https://rubygems.org"
 ruby "3.3.5"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 8.0.0"
+gem "rails", "~> 8.0.1"
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem "propshaft"
 # Use sqlite3 as the database for Active Record
@@ -66,4 +66,4 @@ end
 
 gem "faker", "~> 3.5"
 
-gem "css-zero", "~> 0.0.73"
+gem "css-zero", "~> 0.0.77"
